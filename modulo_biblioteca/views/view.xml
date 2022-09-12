@@ -1,0 +1,161 @@
+<odoo>
+    <data>
+        <!-- Vistas-->
+        <record id="view_tree_libro" model="ir.ui.view">
+            <field name="name">view.tree.bi.libro</field>
+            <field name="model">bi.libro</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="prestado"/>
+                    <field name="cantidad"/>
+                    <field name="description" optional="hide"/>
+
+
+                    <button string="Crear Resgistro"
+                            type="object"
+                            name="crear_registro"
+                            class="btn btn-primary"
+                    />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_form_libro" model="ir.ui.view">
+            <field name="name">view.form.bi.libro</field>
+            <field name="model">bi.libro</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="prestado"/>
+                            </group>
+                            <group>
+                                <field name="precio" string="Ingresa el precio libro" required="1" groups="modulo_biblioteca.res_group_administrador"/>
+                                <field name="cantidad"/>
+                            </group>
+                            <group>
+                                <field name="fecha_publicacion"/>
+                                <field name="precio_des" attrs="{'invisible':['|','|',('descuento','=',0),('precio','>',24),('precio_des','>',24)]}"/>
+                                <field name="descuento"/>
+                                <field name="categoria"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_kanban_libro" model="ir.ui.view">
+            <field name="name">view.tree.li.libro</field>
+            <field name="model">bi.libro</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban  create="true" default_group_by = "categoria" class="o_kanban_small_column o_kanban_project_tasks">
+                     <field name="name"/>
+                     <field name="precio"/>
+                     <field name="prestado"/>
+                    <field name="categoria"/>
+                   <templates>
+                       <t t-name="kanban-box">
+                           <div t-attf-class="oe_kanban_global_click">
+                               <div class="oe_kanban_details">
+
+                                   <t class="o_kanban_record_title">
+                                       <strong t-esc="record.name.value"/>
+                                   </t>
+                                   <div t-if="record.precio.value">
+                                       <t t-esc="record.precio.value"/>
+                                   </div>
+                               </div>
+                           </div>
+                       </t>
+                   </templates>
+                 </kanban>
+            </field>
+
+        </record>
+
+        <record id="view_calendar_libro" model="ir.ui.view">
+            <field name="name">view.calendar.libro</field>
+            <field name="model">bi.libro</field>
+            <field name="arch" type="xml">
+                <calendar date_start="fecha_publicacion" color="user_id">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+
+
+         <!--acciones de ventana-->
+        <record id="action_view_libro1" model="ir.actions.act_window">
+            <field name="name">Libros</field>
+            <field name="res_model">bi.libro</field>
+            <!--<field name="domain">[('prestado', '=', True)]</field>-->
+            <field name="view_mode">tree,form,kanban</field>
+
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    pOR FAVOR CREA LIBROS
+                </p>
+            </field>
+        </record>
+
+        <record id="action_view_tree_libro" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="modulo_biblioteca.view_tree_libro"/>
+            <field name="act_window_id" ref="action_view_libro1"/>
+        </record>
+
+        <record id="action_view_form_libro" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="modulo_biblioteca.view_form_libro"/>
+            <field name="act_window_id" ref="action_view_libro1"/>
+        </record>
+
+        <record id="action_view_kanban_libro" model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="modulo_biblioteca.view_kanban_libro"/>
+            <field name="act_window_id" ref="action_view_libro1"/>
+        </record>
+
+        <record id="action_view_calendar_libro" model="ir.actions.act_window.view">
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="modulo_biblioteca.view_calendar_libro"/>
+            <field name="act_window_id" ref="action_view_libro1"/>
+        </record>
+
+        <record id="action_view_categoria" model="ir.actions.act_window">
+            <field name="name">Categoria</field>
+            <field name="res_model">bi.categoria</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <menuitem id="menu_main_biblioteca"
+                  name="Biblioteca"
+                  parent=""
+                  action="modulo_biblioteca.action_view_libro1"
+        />
+        <menuitem id="menu_libro_biblioteca"
+                  name="Libros"
+                  parent="menu_main_biblioteca"
+                  action="modulo_biblioteca.action_view_libro1"
+        />
+
+        <menuitem id="menu_categoria_biblioteca"
+                  name="Categorias"
+                  groups="modulo_biblioteca.res_group_alumnos"
+                  parent="menu_main_biblioteca"
+                  action="modulo_biblioteca.action_view_categoria"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="view_search_libro" model="ir.ui.view">
+            <field name="name">view.search.libro</field>
+            <field name="model">bi.libro</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="categoria"/>
+                    <field name="name"/>
+                    <group string="Filtros">
+                        <filter string="Categoria" name="group_by_cat"
+                        context="{'group_by': 'categoria'}"/>
+
+                        <filter string="Prestado" name="filter_prestado"
+                        domain="[('prestado', '=', True)]"/>
+
+                        <filter string="Cat. Literatura" name="filter_literatura"
+                        domain="[('categoria', '=', 'literatura')]"/>
+                        <separator/>
+                        <filter name="filter_today"
+                            string="Hoy"
+                            domain="[('fecha_publicacion','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),
+                            ('fecha_publicacion','&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))]"/>
+                        <filter name="filter_this_week"
+                            string="Ultimos 7 dias"
+                            domain="[('fecha_publicacion','&lt;=',context_today().strftime('%Y-%m-%d 23:59:59')),
+                            ('fecha_publicacion','&gt;=',(context_today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

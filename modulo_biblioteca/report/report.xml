@@ -1,0 +1,24 @@
+<odoo>
+    <record id="modulo_biblioteca.paperformat_portrait_a4" model="report.paperformat">
+            <field name="name">Formato A4 Informe Libros</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="default" eval="False" />
+            <field name="dpi" eval="90"/>
+            <field name="margin_top" eval="40"/>
+            <field name="margin_right" eval="20"/>
+            <field name="margin_bottom" eval="30"/>
+            <field name="margin_left" eval="20"/>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing" eval="30"/>
+        </record>
+
+    <report id="modulo_biblioteca.action_report_libros"
+            string="Informe de Libros"
+            model="bi.libro"
+            report_type="qweb-pdf"
+            paperformat="modulo_biblioteca.paperformat_portrait_a4"
+            groups = "modulo_biblioteca.res_group_administrador"
+            name="modulo_biblioteca.tempalte_libros"
+            print_report_name="'%s' % (object.name)"/>
+</odoo>

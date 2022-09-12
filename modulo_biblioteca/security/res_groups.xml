@@ -1,0 +1,15 @@
+<odoo>
+    <record id="module_modulo_biblioteca" model="ir.module.category">
+        <field name="name">Biblioteca</field>
+    </record>
+
+    <record id="res_group_administrador" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="category_id" ref="modulo_biblioteca.module_modulo_biblioteca"/>
+    </record>
+
+    <record id="res_group_alumnos" model="res.groups">
+        <field name="name">Alumnos</field>
+        <field name="category_id" ref="modulo_biblioteca.module_modulo_biblioteca"/>
+    </record>
+</odoo>

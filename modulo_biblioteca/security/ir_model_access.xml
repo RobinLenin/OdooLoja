@@ -1,0 +1,54 @@
+<!--PERMISOS-->
+
+<odoo>
+    <record id="model_access_libro_administrador" model="ir.model.access">
+        <field name="name">model.access.libro_admin</field>
+        <field name="model_id" ref="modulo_biblioteca.model_bi_libro"/>
+        <field name="group_id" ref="modulo_biblioteca.res_group_administrador"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+    <record id="model_access_users_administrador" model="ir.model.access">
+        <field name="name">model.access.users_admin</field>
+        <field name="model_id" ref="modulo_biblioteca.model_res_users"/>
+        <field name="group_id" ref="modulo_biblioteca.res_group_administrador"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+    <record id="model_access_cat_administrador" model="ir.model.access">
+        <field name="name">model.access.cat_admin</field>
+        <field name="model_id" ref="modulo_biblioteca.model_bi_categoria"/>
+        <field name="group_id" ref="modulo_biblioteca.res_group_administrador"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+
+    <record id="model_access_libro_alumno" model="ir.model.access">
+        <field name="name">model.access.libro_alumno</field>
+        <field name="model_id" ref="modulo_biblioteca.model_bi_libro"/>
+        <field name="group_id" ref="modulo_biblioteca.res_group_alumnos"/><!--Administracion/Ajustes-->
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+
+    <record id="model_access_cat_alumno" model="ir.model.access">
+        <field name="name">model.access.cat_alumno</field>
+        <field name="model_id" ref="modulo_biblioteca.model_bi_categoria"/>
+        <field name="group_id" ref="modulo_biblioteca.res_group_alumnos"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+</odoo>
